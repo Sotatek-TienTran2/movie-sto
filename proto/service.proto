@@ -1,0 +1,42 @@
+syntax = "proto3";
+package proto;
+option go_package = "./service1";
+
+message FindMovieByIdAuthorRequest {
+    int64 idAuthor = 1;
+}
+
+message FindMovieByIdAuthorResponse {
+    int64 idMovie = 1;
+    string nameMovie = 2;
+    string categoryMovie = 3;
+}
+
+message MoviesResponse {
+	repeated FindMovieByIdAuthorResponse movies_response = 1;
+}
+
+message LoginRequest {
+    string username = 1;
+    string password = 2;
+}
+message LoginResponse {
+    string  Status = 1;
+	string Username = 2;
+	string Token = 3;
+    int64 ExpireAt = 4;
+}
+
+message LogoutRequest{
+    string Token = 1;
+}
+
+message LogoutResponse{
+    string status = 1;
+}
+
+service AddAuthorService {
+    rpc FindMovieByIdAuthor (FindMovieByIdAuthorRequest) returns (MoviesResponse);
+    rpc LoginGPRC (LoginRequest) returns (LoginResponse);
+    rpc Logout(LogoutRequest) returns (LogoutResponse);
+}
